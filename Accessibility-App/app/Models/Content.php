@@ -12,6 +12,7 @@ class Content extends Model
     protected $fillable = [
         'name',
         'script_id',
+        'image'
     ];
 
     public function script()

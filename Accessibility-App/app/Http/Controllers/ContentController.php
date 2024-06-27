@@ -3,26 +3,38 @@
 namespace App\Http\Controllers;
 
 use App\Models\Content;
-use App\Models\Script;
 use Illuminate\Http\Request;
 
 class ContentController extends Controller
 {
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'script_id' => 'required|exists:scripts,id', // scripts tablosunda geçerli bir ID olduğundan emin olun
+            'script_id' => 'required|exists:scripts,id',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        // Content modelini oluştururken script_id alanını belirtiyoruz
+        // Image handling
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('public/images');
+            $imagePath = basename($imagePath);
+        }
+
         $content = new Content();
         $content->name = $validated['name'];
         $content->script_id = $validated['script_id'];
+        $content->image = $imagePath;
+
         $content->save();
 
-        // Başka işlemler...
-
-        return redirect()->route('content.index'); // Örneğin, içerik listesi sayfasına yönlendirme yapabilirsiniz
+        return redirect()->route('contents.index');
     }
 }

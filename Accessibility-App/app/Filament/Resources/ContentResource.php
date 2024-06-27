@@ -7,6 +7,7 @@ use App\Filament\Resources\ContentResource\RelationManagers;
 use App\Models\Content;
 use App\Models\Script;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -33,6 +34,10 @@ class ContentResource extends Resource
                     ->label('Script')
                     ->options(Script::all()->pluck('name', 'id')->toArray())
                     ->required(),
+                FileUpload::make('image')
+                    ->label('Image')
+                    ->image()
+                    ->required(),
             ]);
     }
 
@@ -43,11 +48,9 @@ class ContentResource extends Resource
                 Tables\Columns\TextColumn::make('id'),
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('script.name')->label('Script'),
+                Tables\Columns\ImageColumn::make('image')->label('Image'),
                 Tables\Columns\TextColumn::make('created_at')->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')->dateTime(),
-            ])
-            ->filters([
-                //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

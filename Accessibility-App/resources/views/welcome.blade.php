@@ -7,18 +7,25 @@
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 <body>
 
 <h1>Buttons</h1>
+
 @foreach ($contents as $content)
-    <button onclick="{{ $content->script->name }}()">{{ $content->name }}</button>
+    <button class="button-with-image" onclick="{{ $content->script->name }}()">
+        @if ($content->image)
+            <img src="{{ asset('storage/' . $content->image) }}" alt="{{ $content->name }}">
+        @endif
+        {{ $content->name }}
+    </button>
 @endforeach
 
 @foreach ($contents as $content)
     <script>
-        window['{{ $content->script->name }}'] = function() {
+        window['{{ $content->script->name }}'] = function () {
             {!! $content->script->code !!}
         }
     </script>

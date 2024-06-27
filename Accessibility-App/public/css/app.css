@@ -1,3 +1,19 @@
+.button-with-image {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.button-with-image img {
+    width: 100px; /* Resim genişliği */
+    height: 100px; /* Resim yüksekliği */
+    margin-right: 10px; /* Resim ile metin arasındaki boşluk */
+}
+
 .dyslexia-font {
     font-family: Andika, sans-serif !important;
 }
