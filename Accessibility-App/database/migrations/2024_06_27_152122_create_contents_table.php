@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('contents', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('script');
+            $table->string('script_id');
             $table->timestamps();
         });
     }
